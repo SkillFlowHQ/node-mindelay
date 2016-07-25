@@ -1,0 +1,11 @@
+{
+  "name": "mindelay",
+  "version": "1.0.0",
+  "description": "sets minimum delay on callback, no matter how long it takes for the caller to call it.",
+  "main": "mindelay.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Clive @ SkillFlow",
+  "license": "Copyright (c) SkillFlow, all rights reserved."
+}
