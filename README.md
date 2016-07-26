@@ -69,3 +69,5 @@ We want to add a somewhat natural delay, but must keep in mind that the API may 
 we can't just use `setTimeout` and keep the user waiting for extra long.
 
 The solution is of course to use `mindelay` instead of `setTimeout`.
+
+Copyright &copy;2016 SkillFlow.  Module created by none other than [Clive Chan](https://github.com/cchan).
