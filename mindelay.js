@@ -22,8 +22,12 @@ Usage:
     //blah
   }, 1000));
 */
+/*eslint no-invalid-this: "off"*/
+/*eslint consistent-this: "off"*/
 
 function mindelay(callback, delayMS){
+  var self = this || null; //May be undefined. That's fine, we'll just go with the default apply() this-value of null.
+
   if(typeof callback === "number" && typeof delayMS === "function")
     callback = [delayMS, delayMS = callback][0]; //wanted to write [callback, delayMS] = [delayMS, callback]; but idk if there's es6
   else if(typeof callback !== "function" || typeof delayMS !== "number")
@@ -31,7 +35,8 @@ function mindelay(callback, delayMS){
 
   var endMS = (new Date().getTime()) + delayMS;
   return function(...args){
-    var self = this;
+    if(typeof this !== "undefined") //the caller can bind a `this`, or otherwise it'll just default to the this from above.
+      self = this;
     var now = new Date().getTime();
     if(now < endMS)
       setTimeout(function(){ callback.apply(self, args); }, endMS - now);
