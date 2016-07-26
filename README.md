@@ -1,4 +1,4 @@
-mindelay [![CircleCI Status](https://circleci.com/gh/SkillFlowHQ/node-mindelay.svg)](https://circleci.com/gh/SkillFlowHQ/node-mindelay) [![bitHound Overall Score](https://www.bithound.io/github/SkillFlowHQ/node-mindelay/badges/score.svg)](https://www.bithound.io/github/SkillFlowHQ/node-mindelay)
+mindelay [![CircleCI Status](https://circleci.com/gh/SkillFlowHQ/node-mindelay.svg)](https://circleci.com/gh/SkillFlowHQ/node-mindelay) [![NPM Version](https://img.shields.io/npm/v/mindelay.svg)](http://npmjs.com/package/mindelay) [![bitHound Overall Score](https://www.bithound.io/github/SkillFlowHQ/node-mindelay/badges/score.svg)](https://www.bithound.io/github/SkillFlowHQ/node-mindelay)
 ========
 
 
