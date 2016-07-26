@@ -3,20 +3,26 @@
 let expect = require("chai").expect;
 let mindelay = require("../mindelay.js");
 
-describe("Callback timing behavior", function() {
-  const times = 10;
+function caller(callback, delay){
+  setTimeout(function(){
+    callback("Some random arguments", undefined, 42);
+  }, delay);
+}
 
-  for(let i = 0; i < times; i++) {
+describe("Callback timing with minimum delay", function() {
+  const times = 5;
+
+  for(let i = 0; i <= times; i++) {
     it("waits until one second is up when called in " + (i / times) +" seconds", function(done) {
       this.timeout(1000 + 1000 / times);
 
       let startTime = new Date().getTime();
-      let minnedCallback = mindelay(function(){
+      let wrappedCallback = mindelay(function(){
         let delta = new Date().getTime() - startTime;
         expect(delta).to.be.within(1000, 1010); //typically 1.000-1.001 seconds
         done();
       }, 1000);
-      setTimeout(minnedCallback, 1000 / times *  i);
+      caller(wrappedCallback, 1000 / times *  i);
     });
   }
 
@@ -25,13 +31,28 @@ describe("Callback timing behavior", function() {
       this.timeout(1000 / times * (i+1));
 
       let startTime = new Date().getTime();
-      let minnedCallback = mindelay(function(){
+      let wrappedCallback = mindelay(function(){
         let delta = new Date().getTime() - startTime;
         let expected = 1000 / times * i;
         expect(delta).to.be.within(expected, expected + 10);
         done();
       }, 1000);
-      setTimeout(minnedCallback, 1000 / times *  i);
+      caller(wrappedCallback, 1000 / times *  i);
     });
   }
+});
+
+
+describe("argument handling", function(){
+  it("receives arguments correctly", function(){
+    caller(function(a, b, c){
+      expect(a).to.equal("Some random arguments");
+      expect(b).to.be.undefined;
+      expect(c).to.equal(42);
+    }, 1000);
+  });
+});
+
+describe("`this` variable scoping", function(){
+
 });
