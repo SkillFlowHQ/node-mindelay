@@ -1,6 +1,6 @@
 {
   "name": "mindelay",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Sets a minimum delay before a callback can be called, no matter how long it takes for the caller to call it.",
   "main": "mindelay.js",
   "scripts": {
@@ -8,12 +8,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SkillFlowHQ/node-mindelay"
+    "url": "git+https://github.com/SkillFlowHQ/node-mindelay.git"
   },
-  "author": "Clive Chan (cc@clive.io) @ SkillFlow",
+  "author": "Clive Chan (cc@clive.io)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/SkillFlowHQ/node-mindelay/issues"
   },
-  "homepage": "https://github.com/SkillFlowHQ/node-mindelay#readme"
+  "homepage": "https://github.com/SkillFlowHQ/node-mindelay#readme",
+  "keywords": [
+    "delay",
+    "timeout",
+    "set",
+    "settimeout",
+    "min",
+    "minimum",
+    "rate",
+    "limit",
+    "bot",
+    "tools"
+  ]
 }
