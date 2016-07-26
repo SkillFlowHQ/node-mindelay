@@ -6,31 +6,31 @@ Pronounced as one word. Sets a minimum delay before a callback can be called, no
 
 Spec
 ----
-
-    function mindelay(function callback, number delayMS)
-      Adds a minimum delay in milliseconds to a callback, however long the caller takes to call it.
-      If the callback is called before the delay is expired, it still waits until the end of the delay.
-      If the callback is called after the delay is expired, it executes immediately.
-
-      If arguments are reversed, it'll still work fine.
-      An exception is thrown if arguments have incorrect types.
-
+```node
+function mindelay(function callback, number delayMS)
+  // Adds a minimum delay in milliseconds to a callback, however long the caller takes to call it.
+  // If the callback is called before the delay is expired, it still waits until the end of the delay.
+  // If the callback is called after the delay is expired, it executes immediately.
+  //
+  // If arguments are reversed, it'll still work fine.
+  // An exception is thrown if arguments have incorrect types.
+```
 
 Install
 -------
 
 On command line:
-
-    $ npm install --save mindelay
-
+```shell
+$ npm install --save mindelay
+```
 In NodeJS:
-
-    let mindelay = require('mindelay');
-
+```node
+let mindelay = require('mindelay');
+```
 Alternatively, in browser JavaScript:
-
-    <script src="path/to/mindelay.js"></script>
-
+```html
+<script src="path/to/mindelay.js"></script>
+```
 
 Usage
 -----
@@ -39,25 +39,25 @@ We're using the usecase of an API response, which illustrates the utility of `mi
 and is how we use `mindelay` in production.
 
 Instead of something like this, which responds as soon as the API responds
-
-    apiCall(data, function(response){
-      //blah
-    });
-
+```node
+apiCall(data, function(response){
+  //blah
+});
+```
 or something like this, which adds a fixed delay of one second to the API response time, no matter how long the API response time
-
-    apiCall(data, function(response){
-      setTimeout(function(){
-        //blah
-      }, 1000)
-    });
-
+```node
+apiCall(data, function(response){
+  setTimeout(function(){
+    //blah
+  }, 1000)
+});
+```
 use something like this, which delays by at least one second, but if the API takes a long while it will respond as soon as possible.
-
-    apiCall(data, mindelay(function(response){
-      //blah
-    }, 1000));
-
+```node
+apiCall(data, mindelay(function(response){
+  //blah
+}, 1000));
+```
 
 Example
 -------
