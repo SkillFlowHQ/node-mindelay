@@ -34,7 +34,7 @@ describe("Callback timing with minimum delay", function() {
       let wrappedCallback = mindelay(function(){
         let delta = new Date().getTime() - startTime;
         let expected = 1000 / times * i;
-        expect(delta).to.be.within(expected, expected + 10);
+        expect(delta).to.be.within(expected - 10, expected + 10);
         done();
       }, 1000);
       caller(wrappedCallback, 1000 / times *  i);
