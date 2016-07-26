@@ -1,7 +1,7 @@
-mindelay
+mindelay ![CircleCI Status](https://circleci.com/gh/SkillFlowHQ/node-mindelay.svg)
 ========
 
-![CircleCI Status](https://circleci.com/gh/SkillFlowHQ/node-mindelay.svg)
+
 
 Pronounced as one word. Sets a minimum delay before a callback can be called, no matter how long it takes for the caller to call it.
 
