@@ -11,6 +11,9 @@
     "url": "git+https://github.com/SkillFlowHQ/node-mindelay.git"
   },
   "author": "Clive Chan (cc@clive.io)",
+  "contributors": [
+    "David Tesler"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/SkillFlowHQ/node-mindelay/issues"

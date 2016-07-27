@@ -72,4 +72,6 @@ we can't just use `setTimeout` and keep the user waiting for extra long.
 
 The solution is of course to use `mindelay` instead of `setTimeout`.
 
-Copyright &copy;2016 SkillFlow.  Module created by none other than [Clive Chan](https://github.com/cchan).
+-----
+
+Copyright &copy;2016 SkillFlow. MIT License. Created by [Clive Chan](https://github.com/cchan), with contributions from [David Tesler](https://github.com/dtesler).
