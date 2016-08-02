@@ -19,7 +19,7 @@ describe("Callback timing with minimum delay", function() {
       let startTime = new Date().getTime();
       let wrappedCallback = mindelay(function(){
         let delta = new Date().getTime() - startTime;
-        expect(delta).to.be.within(990, 1010); //typically 1.000-1.001 seconds
+        expect(delta).to.be.within(995, 1020);
         done();
       }, 1000);
       caller(wrappedCallback, 1000 / times *  i);
@@ -34,7 +34,7 @@ describe("Callback timing with minimum delay", function() {
       let wrappedCallback = mindelay(function(){
         let delta = new Date().getTime() - startTime;
         let expected = 1000 / times * i;
-        expect(delta).to.be.within(expected - 10, expected + 10);
+        expect(delta).to.be.within(expected - 5, expected + 20);
         done();
       }, 1000);
       caller(wrappedCallback, 1000 / times *  i);
@@ -44,7 +44,7 @@ describe("Callback timing with minimum delay", function() {
 
 
 describe("argument handling", function(){
-  it("receives arguments correctly", function(){
+  it("allows the callback to receive arguments correctly", function(){
     caller(function(a, b, c){
       expect(a).to.equal("Some random arguments");
       expect(b).to.be.undefined;
