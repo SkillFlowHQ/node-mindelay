@@ -4,3 +4,5 @@ env:
   node: true
 rules:
   linebreak-style: off
+  spaced-comment: off
+  require-jsdoc: off

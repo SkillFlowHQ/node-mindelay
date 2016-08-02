@@ -4,8 +4,8 @@
   "description": "Sets a minimum delay before a callback can be called, no matter how long it takes for the caller to call it.",
   "main": "mindelay.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha test",
-    "lint": "node node_modules/eslint/bin/eslint.js mindelay.js test"
+    "test": "node node_modules/mocha/bin/mocha test && echo All tests pass. && npm run lint",
+    "lint": "node node_modules/eslint/bin/eslint.js mindelay.js test && echo Linting passes."
   },
   "repository": {
     "type": "git",
