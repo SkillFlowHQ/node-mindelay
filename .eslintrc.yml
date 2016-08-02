@@ -1,2 +1,6 @@
 extends: google
 installedESLint: true
+env:
+  node: true
+rules:
+  linebreak-style: off

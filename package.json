@@ -5,7 +5,7 @@
   "main": "mindelay.js",
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha test",
-    "lint": "node node_modules/eslint/bin/eslint.js mindelay.js"
+    "lint": "node node_modules/eslint/bin/eslint.js mindelay.js test"
   },
   "repository": {
     "type": "git",
