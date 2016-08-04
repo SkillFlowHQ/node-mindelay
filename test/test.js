@@ -1,4 +1,5 @@
 /* eslint no-unused-expressions: "off" */
+/* eslint no-extra-bind: "off" */
 "use strict";
 
 let expect = require("chai").expect;
@@ -47,8 +48,8 @@ describe("Callback timing with minimum delay", function() {
   }
 });
 
-describe("mindelay argument handling", function(){
-  it("takes two arguments: function and delay in ms", function(done){
+describe("mindelay argument handling", function() {
+  it("takes two arguments: function and delay in ms", function(done) {
     let startTime = new Date().getTime();
     let wrappedCallback = mindelay(function() {
       let delta = new Date().getTime() - startTime;
@@ -86,16 +87,20 @@ describe("callback argument handling", function() {
 });
 
 describe("`this` variable scoping", function() {
-  let thisvar = function(){return "asdf";};
+  let thisvar = function() {
+    return "asdf";
+  };
   thisvar.a = "apple";
-  let fakethisvar = function(){return "nope";}
+  let fakethisvar = function() {
+    return "nope";
+  };
   fakethisvar.a = "nope";
-  
-  it("captures `this` when the scope where mindelay() is called has `this`", function(){
-    let wrappedCallback = mindelay(function(){
+
+  it("captures `this` when mindelay()-calling scope has `this`", function() {
+    let wrappedCallback = mindelay(function() {
       expect(this()).to.equal("asdf");
       expect(this.a).to.equal("apple");
     }, 100);
     wrappedCallback();
-  }.bind(thisvar))
+  }.bind(thisvar));
 });
