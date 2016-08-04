@@ -48,7 +48,7 @@ describe("Callback timing with minimum delay", function() {
 });
 
 describe("mindelay argument handling", function(){
-  it("takes exactly two arguments", function(done){
+  it("takes two arguments: function and delay in ms", function(done){
     let startTime = new Date().getTime();
     let wrappedCallback = mindelay(function() {
       let delta = new Date().getTime() - startTime;
@@ -58,6 +58,7 @@ describe("mindelay argument handling", function(){
     wrappedCallback();
   });
   it("allows arguments to be swapped", function(done) {
+    let startTime = new Date().getTime();
     let wrappedCallback = mindelay(200, function() {
       let delta = new Date().getTime() - startTime;
       expect(delta).to.be.within(200 - 5, 200 + 20);
@@ -65,12 +66,10 @@ describe("mindelay argument handling", function(){
     });
     wrappedCallback();
   });
-  it("does not allow lack of a delay", function(done) {
-    expect(mindelay.bind(null, function() {
-      let delta = new Date().getTime() - startTime;
-      expect(delta).to.be.within(200 - 5, 200 + 20);
-      done();
-    })).to.throw(TypeError);
+  it("does not allow missing args", function() {
+    expect(mindelay.bind(null, function() {})).to.throw(TypeError);
+    expect(mindelay.bind(null, 200)).to.throw(TypeError);
+    expect(mindelay.bind(null)).to.throw(TypeError);
   });
 });
 
