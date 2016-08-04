@@ -48,11 +48,12 @@ describe("Callback timing with minimum delay", function() {
 });
 
 describe("callback argument handling", function() {
-  it("allows the callback to receive arguments correctly", function() {
+  it("allows the callback to receive arguments correctly", function(done) {
     let wrappedCallback = mindelay(function(a, b, c) {
       expect(a).to.equal("Some random arguments");
       expect(b).to.be.undefined;
       expect(c).to.equal(42);
+      done();
     }, 1000);
     caller(wrappedCallback, 500);
   });
