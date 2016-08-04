@@ -11,12 +11,11 @@ function caller(callback, delay) {
   }, delay);
 }
 
-//milliseconds of leeway in callback timings
+// milliseconds of leeway in callback timings
 const msAbove = 20;
 const msBelow = 5;
 
 describe("Callback timing with minimum delay", function() {
-  return;
   const times = 5;
 
   for (let i = 0; i <= times; i++) {
@@ -104,51 +103,54 @@ describe("`this` variable scoping", function() {
   };
   fakethisvar.a = "nope";
 
-  it("captures `this` when mindelay()-calling scope has `this`", function() {
+  // These two do nothing, since caller() is defined somewhere else, in another
+  //   library, perhaps, and has its own `this` stuff. No auto inherit.
+  it("defaults to null `this` when mindelay-calling scope has `this`", function(done) {
     let wrappedCallback = mindelay(function() {
-      expect(this()).to.equal("asdf");
-      expect(this.a).to.equal("apple");
+      expect(this).to.be.null;
+      done();
     }, 100);
     caller(wrappedCallback, 100);
   }.bind(thisvar));
 
-  it("captures `this` when directly bound to mindelay", function() {
-    let wrappedCallback = mindelay.bind(thisvar)(function() {
-      expect(this()).to.equal("asdf");
-      expect(this.a).to.equal("apple");
-    }, 100);
-    caller(wrappedCallback, 100);
-  }.bind(fakethisvar));
-
-  it("captures `this` when bound to caller", function() {
-    let wrappedCallback = mindelay.bind(fakethisvar)(function() {
-      expect(this()).to.equal("asdf");
-      expect(this.a).to.equal("apple");
+  it("defaults to null `this` when wrappedCallback caller has `this`", function(done) {
+    let wrappedCallback = mindelay(function() {
+      expect(this).to.be.null;
+      done();
     }, 100);
     caller.bind(thisvar)(wrappedCallback, 100);
   }.bind(fakethisvar));
 
-  it("captures `this` when bound to wrapped callback", function() {
+  // These three matter, since when you bind these
+  // you expect the callback to be able to access them.
+
+  // Binding to mindelay itself is lowest precedence
+  it("captures `this` when directly bound to mindelay", function(done) {
+    let wrappedCallback = mindelay.bind(thisvar)(function() {
+      expect(this()).to.equal("asdf");
+      expect(this.a).to.equal("apple");
+      done();
+    }, 100);
+    caller.bind(fakethisvar)(wrappedCallback, 100);
+  }.bind(fakethisvar));
+
+  // Binding to the wrapped callback is higher precedence
+  it("captures `this` when bound to wrapped callback", function(done) {
     let wrappedCallback = mindelay.bind(fakethisvar)(function() {
       expect(this()).to.equal("asdf");
       expect(this.a).to.equal("apple");
+      done();
     }, 100);
     caller.bind(fakethisvar)(wrappedCallback.bind(thisvar), 100);
   }.bind(fakethisvar));
 
-  it("captures `this` when directly bound to callback", function() {
+  // Binding to the callback directly is highest precedence
+  it("captures `this` when directly bound to callback", function(done) {
     let wrappedCallback = mindelay.bind(fakethisvar)(function() {
       expect(this()).to.equal("asdf");
       expect(this.a).to.equal("apple");
+      done();
     }.bind(thisvar), 100);
-    caller.bind(fakethisvar)(wrappedCallback.bind(fakethisvar), 100);
-  }.bind(fakethisvar));
-
-  it("should error", function() {
-    let wrappedCallback = mindelay.bind(fakethisvar)(function() {
-      expect(this()).to.equal("asdf");
-      expect(this.a).to.equal("apple");
-    }.bind(fakethisvar), 100);
     caller.bind(fakethisvar)(wrappedCallback.bind(fakethisvar), 100);
   }.bind(fakethisvar));
 });
