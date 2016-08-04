@@ -58,6 +58,7 @@ describe("mindelay argument handling", function() {
     }, 200);
     wrappedCallback();
   });
+
   it("allows arguments to be swapped", function(done) {
     let startTime = new Date().getTime();
     let wrappedCallback = mindelay(200, function() {
@@ -67,6 +68,7 @@ describe("mindelay argument handling", function() {
     });
     wrappedCallback();
   });
+
   it("does not allow missing args", function() {
     expect(mindelay.bind(null, function() {})).to.throw(TypeError);
     expect(mindelay.bind(null, 200)).to.throw(TypeError);
@@ -103,4 +105,28 @@ describe("`this` variable scoping", function() {
     }, 100);
     wrappedCallback();
   }.bind(thisvar));
+
+  it("captures `this` when directly bound to mindelay", function() {
+    let wrappedCallback = mindelay.bind(thisvar)(function() {
+      expect(this()).to.equal("asdf");
+      expect(this.a).to.equal("apple");
+    }, 100);
+    wrappedCallback();
+  }.bind(fakethisvar));
+
+  it("captures `this` when bound to wrapped callback", function() {
+    let wrappedCallback = mindelay.bind(fakethisvar)(function() {
+      expect(this()).to.equal("asdf");
+      expect(this.a).to.equal("apple");
+    }, 100);
+    wrappedCallback.bind(thisvar)();
+  }.bind(fakethisvar));
+
+  it("captures `this` when directly bound to callback", function() {
+    let wrappedCallback = mindelay.bind(fakethisvar)(function() {
+      expect(this()).to.equal("asdf");
+      expect(this.a).to.equal("apple");
+    }.bind(thisvar), 100);
+    wrappedCallback.bind(fakethisvar)();
+  }.bind(fakethisvar));
 });
