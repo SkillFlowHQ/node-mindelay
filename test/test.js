@@ -87,5 +87,16 @@ describe("callback argument handling", function() {
 });
 
 describe("`this` variable scoping", function() {
-
+  let thisvar = function(){return "asdf";};
+  thisvar.a = "apple";
+  let fakethisvar = function(){return "nope";}
+  fakethisvar.a = "nope";
+  
+  it("captures `this` when the scope where mindelay() is called has `this`", function(){
+    let wrappedCallback = mindelay(function(){
+      expect(this()).to.equal("asdf");
+      expect(this.a).to.equal("apple");
+    }, 100);
+    wrappedCallback();
+  }.bind(thisvar))
 });
