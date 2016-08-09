@@ -30,6 +30,10 @@ function mindelay(callback, delayMS) {
       callback.apply(self, args);
   };
 
+  wrappedFunction.cancel = function() {
+    endMS = (new Date().getTime());
+  };
+
   wrappedFunction.call = callback;
 
   return wrappedFunction;
