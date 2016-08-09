@@ -1,6 +1,6 @@
 {
   "name": "mindelay",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Sets a minimum delay before a callback can be called, no matter how long it takes for the caller to call it.",
   "main": "mindelay.js",
   "scripts": {
