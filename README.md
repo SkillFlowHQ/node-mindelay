@@ -14,8 +14,8 @@ function mindelay(function callback, number delayMS)
   // Returns callback wrapped with delay code.
   //   If the wrapped callback is called before the delay is expired, it still waits until the end of the delay.
   //   If the wrapped callback is called after the delay is expired, it executes immediately.
-  //   If you need to invoke the callback immediately and ignore any possible delay, calling wrappedCallback.call(...) will do that for you.
-  //   Alternatively, calling wrappedCallback.cancel() will cancel any delay, so that next time you call it it will execute immediately.
+  //   wrappedCallback.call always contains the original callback, if you need to call it directly with no delay.
+  //   Alternatively, calling wrappedCallback.cancel() will cancel any delay, so that next time you call the wrapped callback it will execute immediately.
   //
   // If arguments callback, delayMS are reversed, it'll still work fine.
   // An exception is thrown if arguments have incorrect types.

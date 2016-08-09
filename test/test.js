@@ -154,3 +154,26 @@ describe("`this` variable scoping", function() {
     caller.bind(fakethisvar)(wrappedCallback.bind(fakethisvar), 100);
   }.bind(fakethisvar));
 });
+
+describe("cancel() and call()", function() {
+  it("cancels the callback delay", function(done) {
+    let startTime = new Date().getTime();
+    let wrappedCallback = mindelay(function() {
+      let delta = new Date().getTime() - startTime;
+      expect(delta).to.be.within(200 - msBelow, 200 + msAbove);
+      done();
+    }, 1000);
+    wrappedCallback.cancel();
+    caller(wrappedCallback, 200);
+  });
+
+  it("calls the callback directly", function(done) {
+    let startTime = new Date().getTime();
+    let wrappedCallback = mindelay(function() {
+      let delta = new Date().getTime() - startTime;
+      expect(delta).to.be.within(200 - msBelow, 200 + msAbove);
+      done();
+    }, 1000);
+    caller(wrappedCallback.call, 200);
+  });
+});
