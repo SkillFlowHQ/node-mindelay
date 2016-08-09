@@ -17,7 +17,7 @@ function mindelay(callback, delayMS) {
     throw new TypeError("mindelay expects a callback function and a delay");
 
   let endMS = (new Date().getTime()) + delayMS;
-  return function() {
+  let wrappedFunction = function() {
     let args = arguments;
     if (typeof this !== "undefined") // the caller can bind a `this`, or otherwise it'll just default to the this from above.
       self = this;
@@ -29,6 +29,10 @@ function mindelay(callback, delayMS) {
     else
       callback.apply(self, args);
   };
+  
+  wrappedFunction.call = callback;
+  
+  return wrappedFunction;
 }
 
 if (typeof module !== "undefined" && module.exports)
