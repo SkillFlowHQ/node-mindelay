@@ -65,6 +65,24 @@ apiCall(data, mindelay(function(response){
 }, 1000));
 ```
 
+### Cancellation
+```javascript
+var wrappedCallback = mindelay(function(response){
+  //blah
+}, 1000));
+```
+
+If you ever need to reference the callback directly, use `wrappedCallback.call`:
+```javascript
+wrappedCallback.call(/*...*/) //will have no delay
+```
+
+If you want to cancel any delay on a wrapped callback, use `wrappedCallback.cancel`:
+```javascript
+wrappedCallback.cancel()
+wrappedCallback() //will have no delay
+```
+
 Example
 -------
 
