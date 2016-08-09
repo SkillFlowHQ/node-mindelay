@@ -29,9 +29,9 @@ function mindelay(callback, delayMS) {
     else
       callback.apply(self, args);
   };
-  
+
   wrappedFunction.call = callback;
-  
+
   return wrappedFunction;
 }
 
