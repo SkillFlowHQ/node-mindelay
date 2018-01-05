@@ -9,7 +9,7 @@ Pronounced as one word. Sets a minimum delay before a callback can be called, no
 Spec
 ----
 ```javascript
-function mindelay(function callback, number delayMS)
+function mindelay(Function callback, Number delayMS)
   // Adds a minimum delay in milliseconds to a callback, however long the caller takes to call it.
   // Returns callback wrapped with delay code.
   //   If the wrapped callback is called before the delay is expired, it still waits until the end of the delay.
